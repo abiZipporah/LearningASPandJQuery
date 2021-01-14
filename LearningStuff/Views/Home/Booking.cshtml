@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Bookings page";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>This is the booking page.</p>
+<br />
+    <label><b>Booking Search</b></label>
+    <p>Search through booking type categories</p>
+    <input type="text" id="SearchValue" />
+    <button type="button" id="SearchBookingTypes" value="search">Search</button>
+
+<ul id="SearchResults">
+
+</ul>
+
+<script>
+
+    $(document).ready(function () {
+        var SearchBookingTypes = $('#SearchBookingTypes');
+        var BookingSearch = $('#BookingSearch');
+        var SearchValue = $('#SearchValue').val();
+        var ResultsList = $('#SearchResults');
+        $('#SearchBookingTypes').click(function () {
+            if (SearchValue != '') {
+                $.ajax({
+                    url: 'https://dev.zipporah.co.uk/api/Booking/BookingTypes',
+                    data: {
+                        bookingTypeCategory: SearchValue,
+                    },
+                    success: function (results) {
+                        ResultsList.empty();
+                        $.each(results.bookingTypes, function (index, value) {
+                            ResultsList.append(
+                                $('<li><a href="/').attr(value.id),
+                                ('">'), {
+                                    value: value.id,
+                                    text: value.name
+                                }, ('</a></li>'))
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

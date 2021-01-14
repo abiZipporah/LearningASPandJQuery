@@ -1,0 +1,15 @@
+﻿@model LearningStuff.Models.IndexViewModel.TextModel
+
+@{
+    ViewData["Title"] = "The FullPost Page";
+}
+<br />
+<div class="zip-container">
+    @Model.Message
+    <br />
+    @using (Html.BeginForm("FullPost", "InitialWork"))
+    {
+        <input type="text" id="TestUpdate" name="TestUpdate" />
+        <input type="submit" value="input" />
+    }
+</div>

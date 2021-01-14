@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "A Basic API Calling Page";
+}
+
+<div class="zip-container">
+    <label>Booking Type Categories</label>
+    <select id="BookingTypeCategories">
+    </select>
+    <br />
+    <label>Booking Type</label>
+    <select id="BookingTypeID">
+
+    </select>
+    <br />
+    <label>Resource Catergory</label>
+    <select id="ResourceCategory">
+
+    </select>
+    <br />
+    <label>Resource</label>
+    <select id="ResourceID">
+
+    </select>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var BookingTypeCategories = $('#BookingTypeCategories');
+        var BookingTypeID = $('#BookingTypeID');
+        var ResourceCategoryID = $('#ResourceCategory');
+        var ResourceID = $('#ResourceID');
+        $.ajax({
+            type: 'get',
+            url: "/InitialWork/GetBookingTypeCategories",
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (types) {
+            $.each(types.bookingTypes, function (index, value) {
+                BookingTypeCategories.append(
+                    $('<option>', {
+                        value: value.name,
+                        text: value.name
+                    }, '</option>'));
+            });
+        });
+        $.ajax({
+            type: 'get',
+            url: "/InitialWork/GetBookingTypes",
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (types) {
+            $.each(types.bookingTypes, function (index, value) {
+                BookingTypeID.append(
+                    $('<option>', {
+                        value: value.name,
+                        text: value.name
+                    }, '</option>'));
+            });
+        });
+        $.ajax({
+            type: 'get',
+            url: "/InitialWork/GetResources",
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (types) {
+            $.each(types.resources, function (index, value) {
+                ResourceID.append(
+                    $('<option>', {
+                        value: value.name,
+                        text: value.name
+                    }, '</option>'));
+            });
+        });
+        $.ajax({
+            type: 'get',
+            url: "/InitialWork/GetResourceCategories",
+            contentType: 'application/json',
+            dataType: 'json'
+        }).done(function (types) {
+            $.each(types.resources, function (index, value) {
+                ResourceCategoryID.append(
+                    $('<option>', {
+                        value: value.name,
+                        text: value.name
+                    }, '</option>'));
+            });
+        });
+        
+    });
+</script>

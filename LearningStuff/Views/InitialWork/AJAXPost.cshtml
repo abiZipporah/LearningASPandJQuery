@@ -1,0 +1,37 @@
+﻿@model LearningStuff.Models.IndexViewModel.TextModel
+@{
+    ViewData["Title"] = "The AJAX Post Page";
+}
+<br />
+<div class="zip-container">
+    <p id="MessageID">
+        @Model.Message
+    </p>
+    <br />
+    <input type="text" id="TestUpdate" name="TestUpdate" />
+    <input type="submit" id="AjaxSubmit" value="submit" />
+    <br />
+</div>
+
+<script>
+    $('#AjaxSubmit').click(function () {
+ 
+        var AjaxTestID = $('#TestUpdate').val();
+        if (AjaxTestID.val != '') {
+            var Model = {
+                TestUpdate: AjaxTestID
+            }
+            $.ajax({
+                type: 'post',
+                url: '/InitialWork/AjaxTestUpdate',
+                data: Model
+            }).done(function(values){
+                $('#MessageID').text(values.message);
+                @*console.log(values);
+                console.log(values.Message);
+                console.log(values.message);
+                console.log(values[0]);*@
+            });
+        };
+    });
+</script>
